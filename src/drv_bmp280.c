@@ -6,7 +6,8 @@
 
 // BMP280, address 0x76
 
-#define BMP280_I2C_ADDR                      (0x76)
+// #define BMP280_I2C_ADDR                      (0x76)
+#define BMP280_I2C_ADDR                      (0x77)  //actual address is 0x77, but 0x76 is also supported by the sensor
 #define BMP280_DEFAULT_CHIP_ID               (0x58)
 
 #define BMP280_CHIP_ID_REG                   (0xD0)  /* Chip ID Register */
@@ -133,7 +134,7 @@ static void bmp280_get_up(void)
     bmp280_ut = (int32_t)((((uint32_t)(data[3])) << 12) | (((uint32_t)(data[4])) << 4) | ((uint32_t)data[5] >> 4));
 }
 
-// Returns temperature in DegC, float precision. Output value of “51.23” equals 51.23 DegC.
+// Returns temperature in DegC, float precision. Output value of ï¿½51.23ï¿½ equals 51.23 DegC.
 // t_fine carries fine temperature as global value
 float bmp280_compensate_T(int32_t adc_T)
 {
@@ -147,7 +148,7 @@ float bmp280_compensate_T(int32_t adc_T)
     return T;
 }
 
-// Returns pressure in Pa as float. Output value of “96386.2” equals 96386.2 Pa = 963.862 hPa
+// Returns pressure in Pa as float. Output value of ï¿½96386.2ï¿½ equals 96386.2 Pa = 963.862 hPa
 float bmp280_compensate_P(int32_t adc_P)
 {
     float var1, var2, p;

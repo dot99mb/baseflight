@@ -39,14 +39,14 @@
  *             GN2 |  GN1 |  GN0 |   Mag Input   | Gain       | Output Range
  *                 |      |      |  Range[Ga]    | [LSB/mGa]  |
  *            ------------------------------------------------------
- *              0  |  0   |  0   |  ±0.88Ga      |   1370     | 0xF800?0x07FF (-2048:2047)
- *              0  |  0   |  1   |  ±1.3Ga (def) |   1090     | 0xF800?0x07FF (-2048:2047)
- *              0  |  1   |  0   |  ±1.9Ga       |   820      | 0xF800?0x07FF (-2048:2047)
- *              0  |  1   |  1   |  ±2.5Ga       |   660      | 0xF800?0x07FF (-2048:2047)
- *              1  |  0   |  0   |  ±4.0Ga       |   440      | 0xF800?0x07FF (-2048:2047)
- *              1  |  0   |  1   |  ±4.7Ga       |   390      | 0xF800?0x07FF (-2048:2047)
- *              1  |  1   |  0   |  ±5.6Ga       |   330      | 0xF800?0x07FF (-2048:2047)
- *              1  |  1   |  1   |  ±8.1Ga       |   230      | 0xF800?0x07FF (-2048:2047)
+ *              0  |  0   |  0   |  ï¿½0.88Ga      |   1370     | 0xF800?0x07FF (-2048:2047)
+ *              0  |  0   |  1   |  ï¿½1.3Ga (def) |   1090     | 0xF800?0x07FF (-2048:2047)
+ *              0  |  1   |  0   |  ï¿½1.9Ga       |   820      | 0xF800?0x07FF (-2048:2047)
+ *              0  |  1   |  1   |  ï¿½2.5Ga       |   660      | 0xF800?0x07FF (-2048:2047)
+ *              1  |  0   |  0   |  ï¿½4.0Ga       |   440      | 0xF800?0x07FF (-2048:2047)
+ *              1  |  0   |  1   |  ï¿½4.7Ga       |   390      | 0xF800?0x07FF (-2048:2047)
+ *              1  |  1   |  0   |  ï¿½5.6Ga       |   330      | 0xF800?0x07FF (-2048:2047)
+ *              1  |  1   |  1   |  ï¿½8.1Ga       |   230      | 0xF800?0x07FF (-2048:2047)
  *                               |Not recommended|
  *
  * 4:0 CRB4-CRB: 0 This bit must be cleared for correct operation.
@@ -64,7 +64,8 @@
  *              1  |  1   |  Sleep Mode
  */
 
-#define MAG_ADDRESS 0x1E
+// #define MAG_ADDRESS 0x1E
+#define MAG_ADDRESS 0x0D                    //actual address is 0x1E
 #define MAG_DATA_REGISTER 0x03
 
 #define HMC58X3_R_CONFA 0
@@ -87,7 +88,8 @@ bool hmc5883lDetect(sensor_t *mag)
     uint8_t sig = 0;
 
     ack = i2cRead(MAG_ADDRESS, 0x0A, 1, &sig);
-    if (!ack || sig != 'H')
+    // if (!ack || sig != 'H')
+    if (!ack || sig != 0)
         return false;
 
     mag->init = hmc5883lInit;
